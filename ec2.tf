@@ -181,62 +181,6 @@ resource "aws_lb_listener" "alb_http_listener" {
   }
 }
 
-/*
-# create a listner rule 
-resource "aws_lb_listener_rule" "alb_http_listener_rule" {
-  listener_arn =  aws_lb.application_load_balancer.arn
-  priority = 10
-
-  action {
-    type = "forward"
-    target_group_arn = aws_lb_target_group.alb_target_group.arn
-  }
-    condition {
-    host_header {
-      values = ["jenkins.akash.ko"]
-    }
-  }
-}
-
-##Route 53
-resource "aws_route53_zone" "main" {
-  name = "akash.ko"
-}
-
-resource "aws_route53_zone" "dev" {
-  name = "dev.akash.ko"
-
-  tags = {
-    Environment = "dev"
-  }
-}
-
-resource "aws_route53_record" "dev-ns" {
-  zone_id = aws_route53_zone.main.zone_id
-  name    = "dev.akash.ko"
-  type    = "NS"
-  ttl     = "30"
-
-  records = [
-    "${aws_route53_zone.dev.name_servers.0}",
-    "${aws_route53_zone.dev.name_servers.1}",
-    "${aws_route53_zone.dev.name_servers.2}",
-    "${aws_route53_zone.dev.name_servers.3}",
-  ]
-}
-
-resource "aws_route53_record" "Jenkins_endpoint" {
-  zone_id = aws_route53_zone.main.zone_id
-  type    = "A"
-  name    = "jenkins"
-
-  alias {
-    name                   = aws_lb.application_load_balancer.dns_name
-    zone_id                = aws_lb.application_load_balancer.zone_id
-    evaluate_target_health = true
-  }
-}
-*/
 output "vpc_id" {
   value = aws_vpc.Jenkins-vpc.id
 }
